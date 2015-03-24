@@ -80,12 +80,12 @@ class Data_model extends CI_Model {
 
 	function get_event_user_by_event($event_id){
 		$query = $this->db->query("SELECT * FROM event_user WHERE event_id = '$event_id' ");
-		return $query->row_array();
+		return $query->result_array();
 	}
 
 	function get_event_user_by_user($user_id){
 		$query = $this->db->query("SELECT * FROM event_user WHERE user_id = '$user_id' ");
-		return $query->row_array();
+		return $query->result_array();
 	}
 
 	function get_event_user_by_event_user($event_id, $user_id){
@@ -99,64 +99,74 @@ class Data_model extends CI_Model {
     }
 
 	function update_event_user($event_id, $user_id, $data){
-		$this->db->update('event_user', $data, array('user_id' => $user_id));
+		$this->db->update('event_user', $data, array('user_id' => $user_id, 'event_id' => $event_id));
 		return $this->db->affected_rows();
 	}
 	
-	function delete_user($user_id){
-		return $this->db->delete('user', array('user_id' => $user_id));
+	function delete_event_user($event_id, $user_id){
+		return $this->db->delete('event_user', array('user_id' => $user_id, 'event_id' => $event_id));
 	}
 
 	//table: user_rating
 
-	function get_user($user_id){
-		$query = $this->db->query("SELECT * FROM user WHERE user_id = '$user_id' ");
-		return $query->row_array();
+	function get_user_rating_by_user($user_id){
+		$query = $this->db->query("SELECT * FROM user_rating WHERE user_id = '$user_id' ");
+		return $query->result_array();
 	}
 
-	function get_all_user(){
-		$query = $this->db->query('SELECT * FROM user');
+	function get_user_rating_by_rater($rate_id){
+		$query = $this->db->query("SELECT * FROM user_rating WHERE rate_id = '$rate_id' ");
 		return $query->result_array();
 	}
 	
-	function insert_user($data){
-    	$this->db->insert('user', $data);
+	function get_user_rating_by_user_rater($user_id, $rate_id){
+		$query = $this->db->query("SELECT * FROM user_rating WHERE user_id = '$user_id' and rate_id = '$rate_id' ");
+		return $query->row_array();
+	}
+	
+	function insert_user_rating($data){
+    	$this->db->insert('user_rating', $data);
 		return $this->db->insert_id();
     }
 
-	function update_user($user_id, $data){
-		$this->db->update('user', $data, array('user_id' => $user_id));
+	function update_user_rating($user_id, $rate_id, $data){
+		$this->db->update('user_rating', $data, array('user_id' => $user_id, 'rate_id' => $rate_id));
 		return $this->db->affected_rows();
 	}
 	
-	function delete_user($user_id){
-		return $this->db->delete('user', array('user_id' => $user_id));
+	function delete_user_rating($user_id, $rate_id){
+		return $this->db->delete('user_rating', array('user_id' => $user_id, 'rate_id' => $rate_id));
 	}
 
 	//table: event_rating
 
-	function get_user($user_id){
-		$query = $this->db->query("SELECT * FROM user WHERE user_id = '$user_id' ");
-		return $query->row_array();
+	function get_event_rating_by_event($event_id){
+		$query = $this->db->query("SELECT * FROM event_rating WHERE event_id = '$event_id' ");
+		return $query->result_array();
 	}
 
-	function get_all_user(){
-		$query = $this->db->query('SELECT * FROM user');
+	function get_event_rating_by_rater($rate_id){
+		$query = $this->db->query("SELECT * FROM event_rating WHERE rate_id = '$rate_id' ");
 		return $query->result_array();
 	}
 	
-	function insert_user($data){
-    	$this->db->insert('user', $data);
+	function get_event_rating_by_event_rater($event_id, $rate_id){
+		$query = $this->db->query("SELECT * FROM event_rating WHERE event_id = '$event_id' and rate_id = '$rate_id' ");
+		return $query->row_array();
+	}
+	
+	function insert_event_rating($data){
+    	$this->db->insert('event_rating', $data);
 		return $this->db->insert_id();
     }
 
-	function update_user($user_id, $data){
-		$this->db->update('user', $data, array('user_id' => $user_id));
+	function update_event_rating($event_id, $rate_id, $data){
+		$this->db->update('event_rating', $data, array('event_id' => $event_id, 'rate_id' => $rate_id));
 		return $this->db->affected_rows();
 	}
 	
-	function delete_user($user_id){
-		return $this->db->delete('user', array('user_id' => $user_id));
+	function delete_event_rating($event_id, $rate_id){
+		return $this->db->delete('event_rating', array('event_id' => $event_id, 'rate_id' => $rate_id));
 	}
 
 	//table: sys_parameter
@@ -268,7 +278,7 @@ class Data_model extends CI_Model {
 	
 
 
-	function insert_user($data){
+/* 	function insert_user($data){
     	$this->db->insert('user', $data);
       return $this->db->insert_id();
     }
@@ -284,7 +294,7 @@ class Data_model extends CI_Model {
       if(!is_numeric($user_id))
       	return false;
       return $this->db->delete('user', array('user_id' => $user_id));
-	}
+	} */
 
 	//table: user_relation
 
