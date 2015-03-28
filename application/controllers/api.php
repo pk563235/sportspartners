@@ -65,9 +65,11 @@
 					$insert_data['user_id'] = $clean_post['user_id'];
 					$insert_data['user_name'] = $clean_post['user_name'];
 					$insert_data['user_age'] = $clean_post['user_age'];
-					$insert_data['user_fb_number'] = $clean_post['user_fb_number'];
+					$insert_data['user_fb_id'] = $clean_post['user_fb_id'];
 					$insert_data['user_gender'] = $clean_post['user_gender'];
 					$insert_data['user_mobile'] = $clean_post['user_mobile'];
+					$insert_data['user_status'] = "ACTIVE";
+					$insert_data['user_photo'] = $clean_post['user_photo'];
 					
 					$this->data_model->insert_user($insert_data);
 					
@@ -99,9 +101,10 @@
 					$where_data['user_id'] = $clean_post['user_id'];
 					$insert_data['user_name'] = $clean_post['user_name'];
 					$insert_data['user_age'] = $clean_post['user_age'];
-					$insert_data['user_fb_number'] = $clean_post['user_fb_number'];
+					$insert_data['user_fb_id'] = $clean_post['user_fb_id'];
 					$insert_data['user_gender'] = $clean_post['user_gender'];
 					$insert_data['user_mobile'] = $clean_post['user_mobile'];
+					$insert_data['user_photo'] = $clean_post['user_photo'];
 					
 					$data = $this->data_model->update_user($where_data['user_id'], $insert_data);
 					
