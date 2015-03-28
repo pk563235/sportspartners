@@ -41,12 +41,13 @@ class Profile extends CI_Controller {
 				$insert_data['user_name'] = $clean_post['user_name'];
 				$insert_data['user_age'] = $clean_post['user_age'];
 				$insert_data['user_fb_id'] = $clean_post['user_id'];
-				//$insert_data['user_gender'] = $clean_post['user_gender'];
+				$insert_data['user_gender'] = $clean_post['user_gender_select'];
 				$insert_data['user_mobile'] = $clean_post['user_mobile'];
 				$insert_data['user_detail'] = $clean_post['user_detail'];
 				
 				$user_profile = $this->data_model->update_user($where_data['user_id'], $insert_data);
 				
+				$user_profile = $this->data_model->get_user($where_data['user_id']);
 				$data['user_profile'] = $user_profile;
 			}
 			else
@@ -57,6 +58,7 @@ class Profile extends CI_Controller {
 		{
 		}
 		
-		$this->load->view('profile',$data);
+		
+		$this->load->view('profile_view',$data);
 	}
 }

@@ -80,8 +80,9 @@
 			document.getElementById("name").value = response.name;
 			document.getElementById("gender").value = response.gender;
 			document.getElementById("email").value = response.email;
-			getPhoto(response);
-		//document.login.submit();
+			
+			//getPhoto(response);
+		document.login.submit();
 			});
 			
 		

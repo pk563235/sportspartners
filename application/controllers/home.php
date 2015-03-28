@@ -39,6 +39,8 @@ class Home extends CI_Controller {
 				$insert_data['user_name'] = $clean_post['name'];
 				$insert_data['user_fb_id'] = $clean_post['id'];
 				$insert_data['user_gender'] = $clean_post['gender'];
+				$insert_data['user_email'] = $clean_post['email'];
+				$insert_data['user_status'] = "ACTIVE";
 				
 				$this->data_model->insert_user($insert_data);
 				
@@ -46,7 +48,7 @@ class Home extends CI_Controller {
 			}
 
 			$update_data['user_id'] = $clean_post['id'];
-			$update_data['user_photo'] = $clean_post['photo'];
+			$update_data['user_photo'] = "https://graph.facebook.com/".$clean_post['id']."/picture?type=normal";
 			$this->data_model->update_user($clean_post['id'], $update_data);
 			
 			//$cookie = array('user_id' => $update_data['user_id'],

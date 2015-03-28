@@ -11,8 +11,16 @@
 <?php include 'module/menu.php'; ?>
 <script>
 	function Save_profile() {
+		//$("#user_gender").value = $("#user_gender_select").value;
+		//alert($("#user_gender_select").val());
+		//alert($("#user_gender_select").val() );
 		document.user_profile.submit();
 	}
+	
+	$("#user_gender_select").change(function() {
+		$("#user_gender").value = $(this).value;
+	});
+	
 </script>
 <form class="ui form" name="user_profile" action="Profile/Profile_Update" method="post">
   <h4 class="ui dividing header">Profile</h4>
@@ -53,21 +61,21 @@
 
     <div class="field"> 
       <label>Gender</label> 
-	  <select class="ui search dropdown" name="user_gender" id="user_gender">
+	  <select class="ui search dropdown" name="user_gender_select" id="user_gender_select">
         <option value="" >Not Provide</option>
-        <option value="male" <?php $user_profile['user_gender'] = 'male' ? 'selected="selected"' : ''; ?>>Male</option>
-        <option value="female" <?php $user_profile['user_gender'] = 'female' ? 'selected="selected"' : ''; ?>>Female</option>
+        <option value="male" <?php if ($user_profile['user_gender'] == 'male') echo 'selected'; ?>>Male</option>
+        <option value="female" <?php if ($user_profile['user_gender'] == 'female') echo 'selected' ?>>Female</option>
       </select>
+	  <input type="hidden" name="user_gender" id="user_gender" value="">
     </div>
     <div class="field"></div>
   </div>
-  
 
   <br>
   <div class="field">
     <label>Greeting Message</label>
 	<br>
-    <textarea name="user_detail" id="user_detail" value='<?php echo $user_profile['user_detail']; ?>'></textarea>
+    <textarea name="user_detail" id="user_detail" ><?php echo $user_profile['user_detail']; ?></textarea>
   </div>
    
  

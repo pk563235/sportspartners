@@ -37,18 +37,18 @@
 		
 		// Get All Users
 		function get_all_user(){
-			/* if($this->input->post(NULL, TRUE)){				
+			if($this->input->post(NULL, TRUE)){				
 				$clean_post = $this->input->post(NULL, TRUE);
 				
-				$get_data['user_id'] = $clean_post['user_id']; */
+				//$get_data['user_id'] = $clean_post['user_id'];
 				
 				$data = $this->data_model->get_all_user();
 				echo json_encode($data);
-			/* }
+			}
 			else
 			{
 				echo "error";
-			} */
+			}
 		}
 		
 		// Add New User
@@ -78,7 +78,7 @@
 				}
 				else
 				{
-					echo "missing Data";
+					echo "error";
 				}
 			}
 			else
@@ -112,7 +112,7 @@
 				}
 				else
 				{
-					echo "missing Data";
+					echo "error";
 				}
 			}
 			else
@@ -139,7 +139,7 @@
 				}
 				else
 				{
-					echo "missing Data";
+					echo "error";
 				}
 			}
 			
@@ -171,18 +171,18 @@
 		
 		// Get All Category
 		function get_all_category(){
-			/* if($this->input->post(NULL, TRUE)){				
+			if($this->input->post(NULL, TRUE)){				
 				$clean_post = $this->input->post(NULL, TRUE);
 				
-				$get_data['user_id'] = $clean_post['user_id']; */
+				//$get_data['user_id'] = $clean_post['user_id']; 
 				
 				$data = $this->data_model->get_all_category();
 				echo json_encode($data);
-			/* }
+			}
 			else
 			{
 				echo "error";
-			} */
+			}
 		}
 		
 		// End Table Category ------------------------------------------------------------------------------------------------------------------
@@ -207,18 +207,50 @@
 		
 		// Get All Events
 		function get_all_event(){
-			/* if($this->input->post(NULL, TRUE)){				
-				$clean_post = $this->input->post(NULL, TRUE);
+/* 			if($this->input->post(NULL, TRUE)){				
+				//$clean_post = $this->input->post(NULL, TRUE);
 				
-				$get_data['user_id'] = $clean_post['user_id']; */
+				//$get_data['user_id'] = $clean_post['user_id']; */
 				
 				$data = $this->data_model->get_all_event();
 				echo json_encode($data);
-			/* }
+/* 			}
 			else
 			{
 				echo "error";
 			} */
+		}
+		
+		// Get Hot 10 Events
+		function get_hot_event(){
+/* 			if($this->input->post(NULL, TRUE)){				
+				//$clean_post = $this->input->post(NULL, TRUE);
+				
+				//$get_data['user_id'] = $clean_post['user_id']; */
+				
+				$data = $this->data_model->get_hot_event();
+				echo json_encode($data);
+/* 			}
+			else
+			{
+				echo "error";
+			} */
+		}
+		
+		// Get Search Events
+		function get_search_event(){
+			if($this->input->post(NULL, TRUE)){				
+				$clean_post = $this->input->post(NULL, TRUE);
+				
+				//$get_data['user_id'] = $clean_post['user_id'];
+				
+				$data = $this->data_model->get_search_event($clean_post['search_name']);
+				echo json_encode($data);
+			}
+			else
+			{
+				echo "error";
+			}
 		}
 		
 		// Add New Event
@@ -252,7 +284,7 @@
 				}
 				else
 				{
-					echo "missing Data";
+					echo "error";
 				}
 			}
 			else
@@ -291,7 +323,7 @@
 				}
 				else
 				{
-					echo "missing Data";
+					echo "error";
 				}
 			}
 			else
@@ -318,7 +350,7 @@
 				}
 				else
 				{
-					echo "missing Data";
+					echo "error";
 				}
 			}
 			
@@ -399,7 +431,7 @@
 				}
 				else
 				{
-					echo "missing Data";
+					echo "error";
 				}
 			}
 			else
@@ -425,7 +457,7 @@
 				}
 				else
 				{
-					echo "missing Data";
+					echo "error";
 				}
 			}
 			
@@ -510,7 +542,7 @@
 				}
 				else
 				{
-					echo "missing Data";
+					echo "error";
 				}
 			}
 			else
@@ -540,7 +572,7 @@
 				}
 				else
 				{
-					echo "missing Data";
+					echo "error";
 				}
 			}
 			else
@@ -566,7 +598,7 @@
 				}
 				else
 				{
-					echo "missing Data";
+					echo "error";
 				}
 			}
 			
@@ -651,7 +683,7 @@
 				}
 				else
 				{
-					echo "missing Data";
+					echo "error";
 				}
 			}
 			else
@@ -681,7 +713,7 @@
 				}
 				else
 				{
-					echo "missing Data";
+					echo "error";
 				}
 			}
 			else
@@ -707,7 +739,7 @@
 				}
 				else
 				{
-					echo "missing Data";
+					echo "error";
 				}
 			}
 			
@@ -718,6 +750,145 @@
 		}
 		
 		// End Table Event_Rating ------------------------------------------------------------------------------------------------------------------
+		
+		// Table Event_Comment ------------------------------------------------------------------------------------------------------------------
+		
+		// Get Event Comment Information By Event ID
+		function get_event_comment_by_event()
+		{
+			if($this->input->post(NULL, TRUE)){				
+				$clean_post = $this->input->post(NULL, TRUE);
+				$get_data['event_id'] = $clean_post['event_id'];
+				
+				$data = $this->data_model->get_event_Comment_by_event($get_data['event_id']);
+				echo json_encode($data);
+			}
+			else
+			{
+				echo "error";
+			}
+		}
+		
+		// Get Event Comment Information By User ID
+		function get_event_comment_by_user()
+		{
+			if($this->input->post(NULL, TRUE)){				
+				$clean_post = $this->input->post(NULL, TRUE);
+				$get_data['user_id'] = $clean_post['user_id'];
+				
+				$data = $this->data_model->get_event_comment_by_user($get_data['user_id']);
+				echo json_encode($data);
+			}
+			else
+			{
+				echo "error";
+			}
+		}
+		
+		// Get Event Comment Information By Event ID & User ID
+		function get_event_comment_by_event_user()
+		{
+			if($this->input->post(NULL, TRUE)){				
+				$clean_post = $this->input->post(NULL, TRUE);
+				$get_data['event_id'] = $clean_post['event_id'];
+				$get_data['user_id'] = $clean_post['user_id'];
+				
+			$data = $this->data_model->get_event_comment_by_event_user($get_data['event_id'], $get_data['user_id']);
+				echo json_encode($data);
+			}
+			else
+			{
+				echo "error";
+			}
+		}
+		
+		// Add New Event Comment
+		function add_event_comment()
+		{
+			if($this->input->post(NULL, TRUE)){				
+				$clean_post = $this->input->post(NULL, TRUE);
+				
+				$get_data['event_id'] = $clean_post['event_id'];
+				
+				if ($clean_post['event_id'] != null && $clean_post['user_id'] != null && $clean_post['comment'] != null)
+				{
+					$insert_data['event_id'] = $clean_post['event_id'];
+					$insert_data['user_id'] = $clean_post['user_id'];
+					$insert_data['comment'] = $clean_post['comment'];
+					
+					$this->data_model->insert_event_comment($insert_data);
+					
+					$data = $this->data_model->get_event_Comment_by_event_user($clean_post['event_id'], $clean_post['user_id']);
+					echo json_encode($data);
+				}
+				else
+				{
+					echo "error";
+				}
+			}
+			else
+			{
+				echo "error";
+			}
+		}
+		
+		// Update Event Comment
+		function update_event_comment()
+		{
+			if($this->input->post(NULL, TRUE)){				
+				$clean_post = $this->input->post(NULL, TRUE);
+				
+				$get_data['event_id'] = $clean_post['event_id'];
+				
+				if ($clean_post['event_id'] != null && $clean_post['user_id'] != null && $clean_post['comment'] != null)
+				{
+					$where_data['event_id'] = $clean_post['event_id'];
+					$where_data['user_id'] = $clean_post['user_id'];
+					$insert_data['comment'] = $clean_post['comment'];
+					
+					$data = $this->data_model->update_event_comment($where_data['event_id'], $where_data['user_id'], $insert_data);
+					
+					echo json_encode($data);
+				}
+				else
+				{
+					echo "error";
+				}
+			}
+			else
+			{
+				echo "error";
+			}
+		}
+		
+		// Delete Event Comment
+		function delete_event_comment()
+		{
+			if($this->input->post(NULL, TRUE)){				
+				$clean_post = $this->input->post(NULL, TRUE);
+				
+				if ($clean_post['event_id'] != null && $clean_post['user_id'] != null)
+				{
+					$where_data['event_id'] = $clean_post['event_id'];
+					$where_data['user_id'] = $clean_post['user_id'];
+					
+					$data = $this->data_model->delete_event_comment($where_data['event_id'], $where_data['user_id']);
+					
+					echo json_encode($data);
+				}
+				else
+				{
+					echo "error";
+				}
+			}
+			
+			else
+			{
+				echo "error";
+			}
+		}
+		
+		// End Table Event_Comment ------------------------------------------------------------------------------------------------------------------
 		
 		// Table Sys_Parameter ------------------------------------------------------------------------------------------------------------------
 		
@@ -739,329 +910,53 @@
 		
 		// End Table Sys_Parameter ------------------------------------------------------------------------------------------------------------------
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		function login(){
-			//login
-			$this->session->set_userdata('some_name', 'some_value');
-			
-			if($this->input->post(NULL, TRUE)){
-				
-				$clean_post = $this->input->post(NULL, TRUE);
-				$user_name = $clean_post['user_name'];
-				$user_password = md5($clean_post['user_password']);
-				
-				if($this->user_model->login($user_name, $user_password) ){
-					//login success
-					
-					$response['base'] = $this->config->item('base_url');
-					$response['user_id'] = $this->session->userdata('user_id');
-					$response['display_name'] = $this->session->userdata('display_name');
-					$response['wedding_date'] = $this->session->userdata('wedding_date');
-					$response['user_right'] = $this->session->userdata('user_right');
-					$response['wedding_id'] = $this->session->userdata('wedding_id');
-					$response['media_path'] = $this->session->userdata('media_path');
-					
-					echo json_encode($response);
-					
-					}else{
-					echo "error";
-				}
-				}else{
-				echo "error";
-			}
-			
-		}
-		
-		
-		function get_wedding_detail(){
-			
-			if($this->input->post(NULL, TRUE)){
-				
-				$clean_post = $this->input->post(NULL, TRUE);
-				$get_data['wedding_id'] = $clean_post['wedding_id'];
-				$data = $this->wedding_model->get_wedding_detail( $get_data['wedding_id']);
-				echo json_encode($data);
-				
-				}else{
-				echo "error";
-			}
-			
-		}
-		
-		function get_wedding_intro(){
-			
-			if($this->input->post(NULL, TRUE)){
-				
-				$clean_post = $this->input->post(NULL, TRUE);
-				$get_data['wedding_id'] = $clean_post['wedding_id'];
-				$data = $this->wedding_model->get_wedding_intro( $get_data['wedding_id']);
-				echo json_encode($data);
-				
-				}else{
-				echo "error";
-			}
-			
-		}
-		
-		function get_wedding_schedule(){
-			
-			if($this->input->post(NULL, TRUE)){
-				
-				$clean_post = $this->input->post(NULL, TRUE);
-				$get_data['wedding_id'] = $clean_post['wedding_id'];
-				$data = $this->wedding_model->get_all_wedding_schedule( $get_data['wedding_id']);
-				echo json_encode($data);
-				
-				}else{
-				echo "error";
-			}
-			
-		}
-		
-		function get_wedding_info(){
-			
-			if($this->input->post(NULL, TRUE)){
-				
-				$clean_post = $this->input->post(NULL, TRUE);
-				$get_data['wedding_id'] = $clean_post['wedding_id'];
-				$data = $this->wedding_model->get_wedding_info( $get_data['wedding_id']);
-				echo json_encode($data);
-				
-				}else{
-				echo "error";
-			}
-			
-		}
-		
-		
-		
-		function get_table(){
-			
-			if($this->input->post(NULL, TRUE)){
-				
-				$clean_post = $this->input->post(NULL, TRUE);
-				$get_data['user_id'] = $clean_post['user_id'];
-				$get_data['wedding_id'] = $clean_post['wedding_id'];
-				$data = $this->wedding_model->get_table($get_data['user_id'], $get_data['wedding_id']);
-				echo json_encode($data);
-				
-				}else{
-				echo "error";
-			}
-			
-		}
-		
-		function get_attend(){
-			
-			if($this->input->post(NULL, TRUE)){
-				
-				$clean_post = $this->input->post(NULL, TRUE);
-				$get_data['user_id'] = $clean_post['user_id'];
-				$data = $this->wedding_model->get_attend($get_data['user_id']);
-				echo json_encode($data);
-				
-				}else{
-				echo "error";
-			}
-			
-		}
-		
-		function update_attend(){
-			
-			if($this->input->post(NULL, TRUE)){
-				
-				$clean_post = $this->input->post(NULL, TRUE);
-				$where_data['user_id'] = $clean_post['user_id'];
-				$where_data['wedding_id'] = $clean_post['wedding_id'];
-				$insert_data['people_number'] = $clean_post['people_number'];
-				$insert_data['status'] = $clean_post['status'];
-				
-				$data = $this->wedding_model->update_attend($where_data['user_id'], $where_data['wedding_id'], $insert_data);
-				
-				echo json_encode($data);
-				
-				}else{
-				echo "error";
-			}
-			
-		}
-		
-		function get_wedding_loc(){
-			
-			if($this->input->post(NULL, TRUE)){
-				
-				$clean_post = $this->input->post(NULL, TRUE);
-				$where_data['wedding_id'] = $clean_post['wedding_id'];
-				
-				$data = $this->wedding_model->get_wedding_loc($where_data['wedding_id']);
-				
-				echo json_encode($data);
-				
-				}else{
-				echo "error";
-			}
-		}
-		
-		
-		function get_work_type(){
-			
-			$work_types = $this->wedding_model->get_all_work_type();
-			echo json_encode($work_types);
-			
-		}
-		
-		
-		function get_wedding_work_by_type(){
-			
-			
+		// Function Login
+		public function login() {
+		if($this->input->post(NULL, TRUE)){	
+			$data = $this->general_model->general();
 			$clean_post = $this->input->post(NULL, TRUE);
+			$get_data['id'] = $clean_post['id'];
 			
-			if($clean_post['wedding_id'] != null && $clean_post['work_type'] != null)
+			$user = $this->data_model->get_user($get_data['id']);
+			if ($user == null)
 			{
-				$works = $this->wedding_model-> get_wedding_work_by_type($clean_post['wedding_id'], $clean_post['work_type']);
+				$insert_data['user_id'] = $clean_post['id'];
+				$insert_data['user_name'] = $clean_post['name'];
+				$insert_data['user_fb_id'] = $clean_post['id'];
+				$insert_data['user_gender'] = $clean_post['gender'];
+				$insert_data['user_email'] = $clean_post['email'];
+				$insert_data['user_status'] = "ACTIVE";
 				
-				for($i = 0; $i < count($works); ++$i) {
-					$works[$i]['users'] = $this->wedding_model-> get_work_user_info($works[$i]['work_id']);
-				}
+				$this->data_model->insert_user($insert_data);
 				
-				echo json_encode($works);
-				}else{
-				echo "error";
+				$user = $this->data_model->get_user($clean_post['id']);
 			}
+
+			$update_data['user_id'] = $clean_post['id'];
+			$update_data['user_photo'] = "https://graph.facebook.com/".$clean_post['id']."/picture?type=normal";
+			$this->data_model->update_user($clean_post['id'], $update_data);
 			
-		} 
-		
-		function get_congrats(){
-			if($this->input->post(NULL, TRUE)){
-				$clean_post = $this->input->post(NULL, TRUE);
-				
-				if($clean_post['wedding_id'] != null)
-				{
-					$congrats = $this->wedding_model-> get_wedding_congrat($clean_post['wedding_id']);
-					
-					for($i = 0; $i < count($congrats); ++$i) {
-						$temp = $this->user_model->get_user($congrats[$i]['user_id']);
-						$congrats[$i]['user_display_name'] = $temp['display_name'];
-					}
-					
-					echo json_encode($congrats);
-				}
-				}else{
-				echo "error";
-			}
-			
+			$data = $this->data_model->get_user($get_data['id']);
+			echo json_encode($data);
 		}
-		
-		function add_congrats(){
-			if($this->input->post(NULL, TRUE)){
-				$clean_post = $this->input->post(NULL, TRUE);
-				
-				if($clean_post['wedding_id'] != null && $clean_post['user_id'] != null && $clean_post['congrat_msg'] != null)
-				{
-					$insert_data['wedding_id'] = $clean_post['wedding_id'];
-					$insert_data['user_id'] = $clean_post['user_id'];
-					$insert_data['congrat_msg'] = nl2br($clean_post['congrat_msg']);
-					
-					$this->wedding_model->insert_congrat($insert_data);
-					
-					$congrats = $this->wedding_model-> get_wedding_congrat($clean_post['wedding_id']);
-					
-					for($i = 0; $i < count($congrats); ++$i) {
-						$temp = $this->user_model->get_user($congrats[$i]['user_id']);
-						$congrats[$i]['user_display_name'] = $temp['display_name'];
-						
-					}
-					
-					echo json_encode($congrats);
-				}
-				}else{
-				echo "error";
-			}
-		}
-	function get_news(){
-		if($this->input->post(NULL, TRUE)){
-			$clean_post = $this->input->post(NULL, TRUE);
-	
-			if($clean_post['wedding_id'] != null)
-			{
-				$news = $this->wedding_model-> get_wedding_news($clean_post['wedding_id']);
-				
-				echo json_encode($news);
-			}
-		}else{
+		else
+		{
 			echo "error";
 		}
-
-	}
-	
-	function get_albums(){
-		if($this->input->post(NULL, TRUE)){
-			$clean_post = $this->input->post(NULL, TRUE);
-	
-			if($clean_post['wedding_id'] != null)
-			{
-				$albums = $this->media_model-> get_wedding_album($clean_post['wedding_id']);
-				for($i = 0; $i < count($albums); ++$i) {
-					$temp = $this->media_model->get_top_2_album_photo($albums[$i]["album_id"]);
-					$albums[$i]['top2_photo'] = $temp;
-					
-				}
-				echo json_encode($albums);
-			}
-		}else{
-			echo "error";
-		}
-
-	}
-	
-	function get_album_photos(){
-		if($this->input->post(NULL, TRUE)){
-			$clean_post = $this->input->post(NULL, TRUE);
-	
-			if($clean_post['album_id'] != null)
-			{
-				$albums = $this->media_model-> get_album($clean_post['album_id']);
-				$temp = $this->media_model->get_album_photo($albums["album_id"]);
-				$albums['photos'] = $temp;
-				echo json_encode($albums);
-			}
-		}else{
-			echo "error";
-		}
-
-	}
-	
-	function get_wedding_gift(){
-		if($this->input->post(NULL, TRUE)){
-			$clean_post = $this->input->post(NULL, TRUE);
-	
-			if($clean_post['wedding_id'] != null)
-			{
-				$gifts = $this->gift_model-> get_all_wedding_gift($clean_post['wedding_id']);
-				for($i = 0; $i < count($gifts); ++$i) {
-					$temp = $this->media_model->get_photo($gifts[$i]["gift_photo_id"]);
-					$gifts[$i]['photo'] = $temp;
-				}
-				echo json_encode($gifts);
-			}
-		}else{
-			echo "error";
-		}
-
 	}
 		
-}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}	
+		
+
 ?>

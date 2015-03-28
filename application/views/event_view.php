@@ -20,38 +20,26 @@
   
 	<div>
     <label><b>Event Name</b></label><br>
-	Football Game March
+	<?php echo $event['event_name']; ?>
 		</div>
 <br>
 <div class="two fields">
 	<div class="field">
 	 <label>Date</label>
-		23 Mar 2015
+		<?php echo $event['event_date']; ?>
     </div>
 	<div class="field">
 	 <label>Time</label>
-		5PM
+		<?php echo $event['start_time'].'-'.$event['end_time']; ?>
     </div></div>
 
 	
 <br>
-	 
-	<div class="two fields">
-
-	<div class="field">
-	 <label>Deadline Date</label>
-		23 Mar 2015
-    </div>
-	<div class="field">
-	 <label>Deadline Time</label>
-		3PM
-    </div>
-	</div>
 
 	<div class="two fields">
 	<div class="field">
 	 <label>Location</label>
-		Shatin
+		<?php echo $event['event_location']; ?>
     </div>
 	<div class="field">
     </div>
@@ -62,23 +50,21 @@
   <div class="two fields">
     <div class="field">
       <label>Category</label>
-      Football
+      <?php echo $category['cat_name']; ?>
     </div>
     <div class="field">
 	<label>No. of Joiners</label>
-	22
+	<?php echo $join_person['join_person'].'/'.$event['event_person']; ?>
   </div>
   <div class="field">
     <label>Event Description</label>
-    Weekly Football Game, please join us via SportPartners.
-	Call us @12345678
+    <?php echo $event['event_detail']; ?>
   </div>
   </div>
 </form>
 <br>
 <div class="field">
   <div class="ui submit button">Join</div>
-  <div class="ui submit button" onclick="history.back();">Back</div>
   </div>
 
   </div>

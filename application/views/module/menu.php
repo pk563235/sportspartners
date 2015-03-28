@@ -12,21 +12,21 @@
     <i class="home icon"></i> Home
   </a>
  
-  <a class="item" onclick="goto('news')">
+  <a class="item" onclick="goto('/Event/HotEvent')">
     <i class="rss icon"></i> Updated Events
   </a>
   
-  <a class="item" onclick="goto('Home/Profile')">
+  <a class="item" onclick="goto('/Profile')">
     <i class="user icon"></i> Profile
   </a>
  
   <a class="ui dropdown item">
-    <i class="icon star"></i> Events <i class="dropdown icon"></i>
+    <i class="icon star" onclick="goto('/Event')"></i> Events <i class="dropdown icon"></i>
     <div class="menu">
   	
-  	<div class="item" onclick="goto('newevent')"><i class="plus icon"></i>Create New Event</div>
-	<div class="item" onclick="goto('myevent')"><i class="calendar icon"></i>My Event</div>
-	<div class="item" onclick="goto('search')"><i class="search icon"></i>Search Event</div>
+  	<div class="item" onclick="goto('/Event/Add')"><i class="plus icon"></i>Create New Event</div>
+	<div class="item" onclick="goto('/Event/MyEvent')"><i class="calendar icon"></i>My Event</div>
+	<div class="item" onclick="goto('/Event/SearchEvent')"><i class="search icon"></i>Search Event</div>
     </div>
   </a>
   
