@@ -8,13 +8,22 @@
 <div class="body_frame">
 
 <?php include 'module/menu.php'; ?>
-
+<script>
+	function Add_Comment() {
+		//$("#user_gender").value = $("#user_gender_select").value;
+		//alert($("#user_gender_select").val());
+		//alert($("#user_gender_select").val() );
+		document.add_comment.submit();
+	}
+	
+	
+</script>
 <div class="body_content">
 
 
 
 
-<form class="ui form">
+<form class="ui form" name="add_comment" action="http://sportspartners.net/Event/Add_Comment" method="post">
   <h4 class="ui dividing header">Event Details</h4>
 
   
@@ -60,6 +69,31 @@
     <label>Event Description</label>
     <?php echo $event['event_detail']; ?>
   </div>
+  </div>
+  
+	<h4 class="ui dividing header">Event Comment</h4>
+  <div>
+		<table class="ui table">
+			<thead>
+				<tr>
+					<th>User</th>
+				</tr>
+			</thead>
+			<tbody>
+			  <?php
+			  foreach ($comment as $user_com) {
+					echo '<tr>';
+					echo '<td>'.$user_com['user_comment'].'</td>';
+					echo '</tr>';
+				}
+			  ?>
+			</tbody>
+		</table>
+  </div>
+  <div>
+	<input type="text" name="user_comment" id="user_comment" placeholder="User Comment">
+	<input type="hidden" name="event_id" id="event_id" value="<?php echo $event['event_id']; ?>">
+	<div class="ui submit button" onclick="Add_Comment()">Add Comment</div>
   </div>
 </form>
 <br>

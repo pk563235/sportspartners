@@ -81,11 +81,13 @@ class Event extends CI_Controller {
 		$event = $this->data_model->get_event($event_id);
 		$category = $this->data_model->get_category($event['cat_id']);
 		$join_person = $this->data_model->get_event_user_total_join($event_id);
+		$comment = $this->data_model->get_event_comment_by_event($event_id);
 		//print_r($user_array);
 		
 		$data['event'] = $event;
 		$data['category'] = $category;
 		$data['join_person'] = $join_person;
+		$data['comment'] = $comment;
 		
 	/* 	$user_id = $this->input->cookie('user_id', false);
 		
@@ -93,6 +95,28 @@ class Event extends CI_Controller {
 		$data['user_profile'] = $user_profile; */
 
 		$this->load->view('event_view',$data);
+	}
+	
+	public function Add_Comment(){
+		if($this->input->post(NULL, TRUE)){		
+			$clean_post = $this->input->post(NULL, TRUE);
+			
+			$user_id = $this->input->cookie('user_id', false);			
+			
+			if ($clean_post["event_id"] != null && $clean_post["user_comment"] != null &&
+				$user_id != null)  {
+					
+				$insert_data['event_id'] = $clean_post['event_id'];
+				$insert_data['user_id'] = $user_id;
+				$insert_data['user_comment'] = $clean_post['user_comment'];
+				
+				$this->data_model->insert_event_comment($insert_data);
+				
+				redirect('Event/View/'.$clean_post["event_id"]);
+			}
+			
+		}
+		
 	}
 	
 	public function Add() {

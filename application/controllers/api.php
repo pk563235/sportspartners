@@ -95,8 +95,7 @@
 				
 				$get_data['user_id'] = $clean_post['user_id'];
 				
-				if ($clean_post['user_id'] != null && $clean_post['user_name'] != null && $clean_post['user_age'] != null && 
-					$clean_post['user_gender'] != null && $clean_post['user_mobile'] != null)
+				if ($clean_post['user_id'] != null && $clean_post['user_name'] != null)
 				{
 					$where_data['user_id'] = $clean_post['user_id'];
 					$insert_data['user_name'] = $clean_post['user_name'];
@@ -104,7 +103,7 @@
 					$insert_data['user_fb_id'] = $clean_post['user_fb_id'];
 					$insert_data['user_gender'] = $clean_post['user_gender'];
 					$insert_data['user_mobile'] = $clean_post['user_mobile'];
-					$insert_data['user_photo'] = $clean_post['user_photo'];
+					$insert_data['user_detail'] = $clean_post['user_detail'];
 					
 					$data = $this->data_model->update_user($where_data['user_id'], $insert_data);
 					
@@ -244,8 +243,15 @@
 				
 				//$get_data['user_id'] = $clean_post['user_id'];
 				
-				$data = $this->data_model->get_search_event($clean_post['search_name']);
-				echo json_encode($data);
+				if ($clean_post["search_name"] != null) {
+					$data = $this->data_model->get_search_event($clean_post['search_name']);
+					echo json_encode($data);
+				}
+				else
+				{
+					$data = $this->data_model->get_all_event();
+					echo json_encode($data);
+				}
 			}
 			else
 			{
@@ -259,27 +265,24 @@
 			if($this->input->post(NULL, TRUE)){				
 				$clean_post = $this->input->post(NULL, TRUE);
 				
-				if ($clean_post['event_id'] != null && $clean_post['event_name'] != null && $clean_post['event_date'] != null && 
-					$clean_post['event_startdate'] != null && $clean_post['event_enddate'] != null && $clean_post['cat_id'] != null &&
-					$clean_post['event_location'] != null && $clean_post['event_person'] != null && $clean_post['event_deadline'] != null && 
-					$clean_post['user_id'] != null)
+				if ($clean_post["event_name"] != null && $clean_post["event_date"] != null &&
+					$clean_post["start_time"] != null && $clean_post["end_time"] != null &&
+					$clean_post["event_person"] != null) 
 				{
-					$insert_data['event_id'] = $clean_post['event_id'];
 					$insert_data['event_name'] = $clean_post['event_name'];
 					$insert_data['event_date'] = $clean_post['event_date'];
-					$insert_data['event_startdate'] = $clean_post['event_startdate'];
-					$insert_data['event_enddate'] = $clean_post['event_enddate'];
+					$insert_data['start_time'] = $clean_post['start_time'];
+					$insert_data['end_time'] = $clean_post['end_time'];
 					$insert_data['cat_id'] = $clean_post['cat_id'];
 					$insert_data['event_location'] = $clean_post['event_location'];
 					$insert_data['event_person'] = $clean_post['event_person'];
 					$insert_data['event_detail'] = $clean_post['event_detail'];
-					$insert_data['event_deadline'] = $clean_post['event_deadline'];
-					$insert_data['create_by'] = $clean_post['user_id'];
-					$insert_data['create_date'] = $clean_post['create_date'];
+					$insert_data['event_status'] = 'ACTIVE';
+					$insert_data['create_by'] = $user_id;
 					
-					$this->data_model->insert_event($insert_data);
+					$event_id = $this->data_model->insert_event($insert_data);
 					
-					$data = $this->data_model->get_event($clean_post['event_id']);
+					$data = $this->data_model->get_event($event_id);
 					echo json_encode($data);
 				}
 				else
