@@ -9,8 +9,6 @@
 
 <div class="body_frame">
 
-<?php include 'module/menu.php'; ?>
-
 <script>
     
 	$( document ).ready(function() {

@@ -259,6 +259,27 @@
 			}
 		}
 		
+		// Get Category Events
+		function get_cat_event(){
+			if($this->input->post(NULL, TRUE)){				
+				$clean_post = $this->input->post(NULL, TRUE);
+				
+				if ($clean_post["cat_id"] != null) {
+					$data = $this->data_model->get_cat_event($clean_post['cat_id']);
+					echo json_encode($data);
+				}
+				else
+				{
+					$data = $this->data_model->get_cat_event("01");
+					echo json_encode($data);
+				}
+			}
+			else
+			{
+				echo "error";
+			}
+		}
+		
 		// Add New Event
 		function add_event()
 		{

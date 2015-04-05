@@ -48,20 +48,20 @@ class Home extends CI_Controller {
 			}
 
 			$update_data['user_id'] = $clean_post['id'];
-			$update_data['user_photo'] = "https://graph.facebook.com/".$clean_post['id']."/picture?type=normal";
+			$update_data['user_photo'] = "https://graph.facebook.com/".$clean_post['id']."/picture?type=square";
 			$this->data_model->update_user($clean_post['id'], $update_data);
 			
 			//$cookie = array('user_id' => $update_data['user_id'],
 			//				 'user_photo' => $update_data['user_photo']);
 
 			$this->input->set_cookie("user_id",$update_data['user_id'],time()+3600);
-			$this->input->set_cookie("user_photo",$clean_post['photo'],time()+3600);
+			$this->input->set_cookie("user_photo",$update_data['user_photo'],time()+3600);
 			
 
 			
-			echo $this->input->cookie('value',true);
+			//echo $this->input->cookie('value',true);
 			
-			$update_data['user_id']."<br>".$update_data['user_photo'];
+			$update_data['user_id']."<br>".$update_data['user_id'];
 			$this->load->view('index_view', $data);
 		}
 		else
@@ -70,39 +70,25 @@ class Home extends CI_Controller {
 		}
 	}
 	
-	public function Event_edit(){
-		$data = $this->general_model->general();
-		/*
-		if(!$data['logined']){
-			redirect('/');
-		}else{
-			$this->load->view('index_view',$data);
-		}
-		*/
-		$this->load->view('event_edit',$data);
+	public function Logout(){
+		$this->load->helper('cookie');
+		
+		delete_cookie("user_id");
+		delete_cookie("user_photo");
+		
+		redirect('/');
 	}
 	
-	public function Event_view(){
-		$data = $this->general_model->general();
-		/*
-		if(!$data['logined']){
+	private function CheckLogin(){
+		$user_id = $this->input->cookie('user_id', false);
+		if ($user_id == null || $user_id = "")
+		{
 			redirect('/');
-		}else{
-			$this->load->view('index_view',$data);
+			return false;
 		}
-		*/
-		$this->load->view('event_view',$data);
-	}
-	
-	public function My_event(){
-		$data = $this->general_model->general();
-		/*
-		if(!$data['logined']){
-			redirect('/');
-		}else{
-			$this->load->view('index_view',$data);
+		else
+		{
+			return true;
 		}
-		*/
-		$this->load->view('myevent',$data);
 	}
 }

@@ -16,7 +16,7 @@
     <i class="rss icon"></i> Updated Events
   </a>
   
-  <a class="item" onclick="goto('/Profile')">
+  <a class="item" onclick="goto('/Profile/ViewProfile')">
     <i class="user icon"></i> Profile
   </a>
  
@@ -30,20 +30,11 @@
     </div>
   </a>
   
-  
   <div class="right menu">
-  
-
-	
-	<?php
-
-
-	echo "<a class='item' href='".$base."user/logout'>";
-    echo "<i class='user icon'></i> Logout";
-	echo "</a>";
-	
-	?>
-
+	<img src='<?php echo $this->input->cookie('user_photo'); ?>' width='30' height='30'>
+	<a class="item" onclick="goto('/Home/Logout')">
+		<i class='user icon'></i>Logout
+	</a>
 	
   </div>
   <script>

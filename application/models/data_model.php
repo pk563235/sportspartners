@@ -61,10 +61,10 @@ class Data_model extends CI_Model {
 		$query = $this->db->query("SELECT e.* , IFNULL(j.join_person, 0) AS join_person, c.cat_name, u.user_name
 										FROM event e
 										LEFT JOIN (
-											SELECT event_id, COUNT( * ) AS join_person
+											SELECT event_id as person_event_id, COUNT( * ) AS join_person
 											FROM event_user
 											GROUP BY event_id
-										) j ON e.event_id = j.event_id
+										) j ON e.event_id = j.person_event_id
 										, category c, user u
 										WHERE e.cat_id = c.cat_id AND e.create_by = u.user_id AND event_date >= CURDATE( ) AND event_status = 'ACTIVE' ");
 		return $query->result_array();
@@ -81,6 +81,20 @@ class Data_model extends CI_Model {
 										, category c, user u
 										WHERE e.cat_id = c.cat_id AND e.create_by = u.user_id AND event_date >= CURDATE( ) AND event_status = 'ACTIVE'
 										ORDER by create_date desc limit 10");
+		return $query->result_array();
+	}
+	
+	function get_my_event($user_id){
+		$query = $this->db->query("SELECT e.* , IFNULL(j.join_person, 0) AS join_person, c.cat_name, u.user_name
+										FROM event e
+										LEFT JOIN (
+											SELECT event_id, COUNT( * ) AS join_person
+											FROM event_user
+											GROUP BY event_id
+										) j ON e.event_id = j.event_id
+										, category c, user u
+										WHERE e.cat_id = c.cat_id AND e.create_by = u.user_id AND event_status = 'ACTIVE'
+										AND (e.create_by = $user_id or exists(select * from event_user where event_id = e.event_id and user_id = $user_id))");
 		return $query->result_array();
 	}
 	
@@ -218,7 +232,7 @@ class Data_model extends CI_Model {
 	//table: event_comment
 
 	function get_event_comment_by_event($event_id){
-		$query = $this->db->query("SELECT * FROM event_comment WHERE event_id = '$event_id' ");
+		$query = $this->db->query("SELECT c.*, u.user_name FROM event_comment c, user u WHERE c.user_id = u.user_id and event_id = '$event_id' ");
 		return $query->result_array();
 	}
 
@@ -253,8 +267,22 @@ class Data_model extends CI_Model {
 		return $query->row_array();
 	}
 
+	// additional functions
+	function check_user_join_event($event_id, $user_id){
+		$query = $this->db->query("SELECT * FROM event where event_id = $event_id 
+									and (create_by = $user_id or exists 
+										(select * from event_user where event_id = $event_id and user_id = $user_id)
+									)");
+		return $query->row_array();
+	}
 
-
+	function check_user_have_comment($event_id, $user_id){
+		$query = $this->db->query("SELECT * FROM event_comment where event_id = $event_id
+									and (user_id = $user_id or exists
+										(select * from event where event_id = $event_id and create_by = $user_id)
+									)");
+		return $query->row_array();
+	}
 
 
 }

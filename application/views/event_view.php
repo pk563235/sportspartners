@@ -9,12 +9,11 @@
 
 <?php include 'module/menu.php'; ?>
 <script>
+	
 	function Add_Comment() {
-		//$("#user_gender").value = $("#user_gender_select").value;
-		//alert($("#user_gender_select").val());
-		//alert($("#user_gender_select").val() );
-		document.add_comment.submit();
+		document.mainform.submit();
 	}
+
 	
 	
 </script>
@@ -23,7 +22,7 @@
 
 
 
-<form class="ui form" name="add_comment" action="http://sportspartners.net/Event/Add_Comment" method="post">
+<form class="ui form" name="mainform" id="mainform" action="http://sportspartners.net/Event/Add_Comment" method="post">
   <h4 class="ui dividing header">Event Details</h4>
 
   
@@ -77,12 +76,14 @@
 			<thead>
 				<tr>
 					<th>User</th>
+					<th>Comment</th>
 				</tr>
 			</thead>
 			<tbody>
 			  <?php
 			  foreach ($comment as $user_com) {
 					echo '<tr>';
+					echo '<td>'.$user_com['user_name'].'</td>';
 					echo '<td>'.$user_com['user_comment'].'</td>';
 					echo '</tr>';
 				}
@@ -91,14 +92,25 @@
 		</table>
   </div>
   <div>
-	<input type="text" name="user_comment" id="user_comment" placeholder="User Comment">
+	
 	<input type="hidden" name="event_id" id="event_id" value="<?php echo $event['event_id']; ?>">
-	<div class="ui submit button" onclick="Add_Comment()">Add Comment</div>
+	<?php
+		if ($enableComment == null){
+			echo '<input type="text" name="user_comment" id="user_comment" placeholder="User Comment">';
+			echo '<div class="ui submit button" onclick="Add_Comment()">Add Comment</div>';
+		}
+	?>
   </div>
 </form>
 <br>
 <div class="field">
-  <div class="ui submit button">Join</div>
+  <?php
+	if ($enableJoin == null)
+		echo "<div class=\"ui submit button\" onclick=\"goto('http://sportspartners.net/Event/Join_Event/".$event['event_id']."')\">Join</div>";
+	else
+		echo '<label>You have already join this event!</label>'
+  ?>
+  
   </div>
 
   </div>

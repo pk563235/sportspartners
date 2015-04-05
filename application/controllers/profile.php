@@ -12,19 +12,39 @@ class Profile extends CI_Controller {
 	}
 
 	public function Index(){
+		if ($this->CheckLogin() == true)
+		{
+			$data = $this->general_model->general();
+			$user_array = $this->data_model->get_all_user();
+			//print_r($user_array);
+			$data['user_array'] = $user_array;
+			
+			
+			$user_id = $this->input->cookie('user_id', false);
+			
+			$user_profile = $this->data_model->get_user($user_id);
+			$data['user_profile'] = $user_profile;
 
-		$data = $this->general_model->general();
-		$user_array = $this->data_model->get_all_user();
-		//print_r($user_array);
-		$data['user_array'] = $user_array;
-		
-		
-		$user_id = $this->input->cookie('user_id', false);
-		
-		$user_profile = $this->data_model->get_user($user_id);
-		$data['user_profile'] = $user_profile;
+			$this->load->view('profile',$data);
+		}
+	}
+	
+	public function ViewProfile(){
+		if ($this->CheckLogin() == true)
+		{
+			$data = $this->general_model->general();
+			//$user_array = $this->data_model->get_all_user();
+			//print_r($user_array);
+			//$data['user_array'] = $user_array;
+			
+			
+			$user_id = $this->input->cookie('user_id', false);
+			
+			$user_profile = $this->data_model->get_user($user_id);
+			$data['user_profile'] = $user_profile;
 
-		$this->load->view('profile',$data);
+			$this->load->view('profile_view',$data);
+		}
 	}
 	
 	public function Profile_Update() {
@@ -60,5 +80,18 @@ class Profile extends CI_Controller {
 		
 		
 		$this->load->view('profile_view',$data);
+	}
+	
+	public function CheckLogin(){
+		$user_id = $this->input->cookie('user_id', false);
+		if ($user_id == null || $user_id = "")
+		{
+			redirect('/');
+			return false;
+		}
+		else
+		{
+			return true;
+		}
 	}
 }
