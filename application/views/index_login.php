@@ -25,13 +25,13 @@
 			
 		FB.Event.subscribe('auth.authResponseChange', function(response) {
 		 if (response.status === 'connected') {
-			document.getElementById("message").innerHTML +=  "<br>Connected to Facebook";
+			//document.getElementById("message").innerHTML +=  "<br>Connected to Facebook";
 			//SUCCESS
 		} else if (response.status === 'not_authorized') {
-			document.getElementById("message").innerHTML +=  "<br>Failed to Connect";
+			//document.getElementById("message").innerHTML +=  "<br>Failed to Connect";
 			//FAILED
 		} else {
-			document.getElementById("message").innerHTML +=  "<br>Logged Out";
+			//document.getElementById("message").innerHTML +=  "<br>Logged Out";
 			//UNKNOWN ERROR
 		}
 		});	
@@ -63,13 +63,13 @@
 
 		var str="";
 		
-		  str +="<b>Name</b> : "+response.name+"<br>";
-	  	  str +="<b>Link: </b>"+response.link+"<br>";
-	  	  str +="<b>id: </b>"+response.id+"<br>";
-		  str +="<b>gender:</b> "+response.gender+"<br>";
-		  str +="<b>Email:</b> "+response.email+"<br>";
-		  str +="<b>locale:</b> "+response.locale+"<br>";
-		  str +="<b>age_range:</b> "+response.age_range+"<br>";
+		  //str +="<b>Name</b> : "+response.name+"<br>";
+	  	  //str +="<b>Link: </b>"+response.link+"<br>";
+	  	  //str +="<b>id: </b>"+response.id+"<br>";
+		  //str +="<b>gender:</b> "+response.gender+"<br>";
+		  //str +="<b>Email:</b> "+response.email+"<br>";
+		  //str +="<b>locale:</b> "+response.locale+"<br>";
+		  //str +="<b>age_range:</b> "+response.age_range+"<br>";
 		  
 		  
 	  	  document.getElementById("status").innerHTML=str;
@@ -116,42 +116,48 @@
 
 
 </script>
-<div align="center">
-<h2>Facebook Javascript Login</h2>
-
- <br/>
-
-<p> Welcome to <b>Sportspartners!</b> </p>
-<p> Feel lonely on play sport alone? Or missing 1 member in you football match? We can help you! </p>
-<p>  Please Sign in Facebook to join us!</p>
-
- <div class="ui facebook button" onclick="Login()">
-  <i class="facebook icon"></i>
-  Facebook
+<div class="ui green inverted  menu">
+  <a class="active item" onclick="goto('/')">
+    <i class="home icon"></i> Home
+  </a>
 </div>
- 
- <br/><br/>
- 
- <form name="login" action='Home/LoginFB/' method="post">
- <input type="hidden" id="id" name="id">
- <input type="hidden" id="name" name="name">
- <input type="hidden" id="gender" name="gender">
- <input type="hidden" id="email" name="email">
- <input type="hidden" id="photo" name="photo">
- 
- </form>
+	<div align="center">
+	<h2>Sportspartners Login</h2>
+
+	 <br/>
+
+	<p> Welcome to <b>Sportspartners!</b> </p>
+	<p> Feel lonely on play sport alone? Or missing 1 member in you football match? We can help you! </p>
+	<p>  Please Sign in Facebook to join us!</p>
+
+	 <div class="ui facebook button" onclick="Login()">
+	  <i class="facebook icon"></i>
+	  Facebook
+	</div>
+	 
+	 <br/><br/>
+	 
+	 <form name="login" action='Home/LoginFB/' method="post">
+	 <input type="hidden" id="id" name="id">
+	 <input type="hidden" id="name" name="name">
+	 <input type="hidden" id="gender" name="gender">
+	 <input type="hidden" id="email" name="email">
+	 <input type="hidden" id="photo" name="photo">
+	 
+	 </form>
 
 
- 
- 
-<div id="status"> 
-	
-</div>
-<br/><br/><br/><br/><br/>
-<div id="message">
-Logs:<br/>
-</div>
+	 
+	 
+	<div id="status"> 
+		
+	</div>
+	<br/><br/><br/><br/><br/>
+	<div id="message">
+	<br/>
+	</div>
 
+	</div>
 </div>
 <script>
    $( document ).ready(function() {

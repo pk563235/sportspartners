@@ -53,7 +53,15 @@ class Data_model extends CI_Model {
 	//table: event
 
 	function get_event($event_id){
-		$query = $this->db->query("SELECT * FROM event WHERE event_id = '$event_id' AND event_status = 'ACTIVE' ");
+		$query = $this->db->query("SELECT e.* , IFNULL(j.join_person, 0) AS join_person, c.cat_name, u.user_name
+										FROM event e
+										LEFT JOIN (
+											SELECT event_id as person_event_id, COUNT( * ) AS join_person
+											FROM event_user
+											GROUP BY event_id
+										) j ON e.event_id = j.person_event_id
+										, category c, user u
+										WHERE e.cat_id = c.cat_id AND e.create_by = u.user_id AND event_id = '$event_id' AND event_status = 'ACTIVE' ");
 		return $query->row_array();
 	}
 
@@ -67,6 +75,19 @@ class Data_model extends CI_Model {
 										) j ON e.event_id = j.person_event_id
 										, category c, user u
 										WHERE e.cat_id = c.cat_id AND e.create_by = u.user_id AND event_date >= CURDATE( ) AND event_status = 'ACTIVE' ");
+		return $query->result_array();
+	}
+	
+	function get_cat_event($cat_id){
+		$query = $this->db->query("SELECT e.* , IFNULL(j.join_person, 0) AS join_person, c.cat_name, u.user_name
+										FROM event e
+										LEFT JOIN (
+											SELECT event_id as person_event_id, COUNT( * ) AS join_person
+											FROM event_user
+											GROUP BY event_id
+										) j ON e.event_id = j.person_event_id
+										, category c, user u
+										WHERE e.cat_id = c.cat_id AND c.cat_id = '$cat_id' AND e.create_by = u.user_id AND event_date >= CURDATE( ) AND event_status = 'ACTIVE' ");
 		return $query->result_array();
 	}
 	

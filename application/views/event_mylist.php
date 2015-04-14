@@ -20,7 +20,7 @@
 </script>
 <div class="body_content">
 
-
+<div style="padding-left:10px;padding-right:10px">
 
 <p> <b> My Event: </b></p>
 
@@ -49,7 +49,7 @@
 		echo '<td>'.$event['event_location'].'</td>';
 		echo '<td>'.$event['join_person'].'/'.$event['event_person'].'</td>';
 		echo '<td>'.$event['user_name'].'</td>';
-		echo '<td><div class="ui quit button" onclick="goto(\'/Event/View/'.$event['event_id'].'\')">Detail/Join</a></td>';
+		echo '<td><div class="ui quit button" onclick="goto(\'/Event/View/'.$event['event_id'].'\')">Detail/Join</div></td>';
 		echo '</tr>';
     }
   ?>
@@ -62,6 +62,7 @@
   </div>
 
   </div>
+</div>
 </body>
 
 </html>

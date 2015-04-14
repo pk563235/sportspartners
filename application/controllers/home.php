@@ -23,7 +23,11 @@ class Home extends CI_Controller {
 			$this->load->view('index_view',$data);
 		}
 		*/
-		$this->load->view('index_login',$data);
+		
+		if ($this->session->userdata('logged') == true)
+			$this->load->view('index_view', $data);
+		else
+			$this->load->view('index_login',$data);
 	}
 	
 	public function LoginFB() {
@@ -48,7 +52,7 @@ class Home extends CI_Controller {
 			}
 
 			$update_data['user_id'] = $clean_post['id'];
-			$update_data['user_photo'] = "https://graph.facebook.com/".$clean_post['id']."/picture?type=square";
+			$update_data['user_photo'] = "https://graph.facebook.com/".$clean_post['id']."/picture";
 			$this->data_model->update_user($clean_post['id'], $update_data);
 			
 			//$cookie = array('user_id' => $update_data['user_id'],
@@ -57,12 +61,20 @@ class Home extends CI_Controller {
 			$this->input->set_cookie("user_id",$update_data['user_id'],time()+3600);
 			$this->input->set_cookie("user_photo",$update_data['user_photo'],time()+3600);
 			
+			$newdata = array(
+				'user_id' => $update_data['user_id'],
+				'user_photo' => $update_data['user_photo'],
+				'logged' => TRUE
+			);
+			
+			$this->session->set_userdata($newdata);
 
 			
 			//echo $this->input->cookie('value',true);
 			
 			$update_data['user_id']."<br>".$update_data['user_id'];
-			$this->load->view('index_view', $data);
+			//$this->load->view('index_view', $data);
+			redirect('');
 		}
 		else
 		{
@@ -75,6 +87,10 @@ class Home extends CI_Controller {
 		
 		delete_cookie("user_id");
 		delete_cookie("user_photo");
+		
+		$this->session->unset_userdata('user_id');
+		$this->session->unset_userdata('user_photo');
+		$this->session->unset_userdata('logged');
 		
 		redirect('/');
 	}

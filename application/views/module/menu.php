@@ -8,7 +8,7 @@
 	}
 </script>
 <div class="ui green inverted  menu">
-  <a class="active item" onclick="goto('index')">
+  <a class="active item" onclick="goto('/')">
     <i class="home icon"></i> Home
   </a>
  
@@ -31,11 +31,10 @@
   </a>
   
   <div class="right menu">
-	<img src='<?php echo $this->input->cookie('user_photo'); ?>' width='30' height='30'>
+	<img src='<?php echo $this->session->userdata('user_photo').'?type=square'; ?>' width='30' height='30'>
 	<a class="item" onclick="goto('/Home/Logout')">
 		<i class='user icon'></i>Logout
 	</a>
-	
   </div>
   <script>
     $('.ui.dropdown.item').dropdown({on: 'hover'});

@@ -137,6 +137,16 @@ class Event extends CI_Controller {
 			
 			$data['category'] = $category;
 			
+			$data['event_name'] = "";
+			$data['event_date'] = "";
+			$data['start_time'] = "";
+			$data['end_time'] = "";
+			$data['cat_id'] = "";
+			$data['event_location'] = "";
+			$data['event_person'] = "";
+			$data['event_detail'] = "";
+			$data['message'] = "";
+			
 			$this->load->view('event_add', $data);
 		}
 	}
@@ -156,9 +166,8 @@ class Event extends CI_Controller {
 				
 				$this->data_model->insert_event_comment($insert_data);
 				
-				redirect('Event/View/'.$clean_post["event_id"]);
 			}
-			
+			redirect('Event/View/'.$clean_post["event_id"]);
 		}
 	}
 	
@@ -186,6 +195,98 @@ class Event extends CI_Controller {
 				$event_id = $this->data_model->insert_event($insert_data);
 				
 				redirect('Event/View/'.$event_id);
+			}
+			else
+			{
+				$data = $this->general_model->general();
+				$category = $this->data_model->get_all_category();
+				
+				$data['category'] = $category;
+				
+				$data['event_name'] = $clean_post['event_name'];
+				$data['event_date'] = $clean_post['event_date'];
+				$data['start_time'] = $clean_post['start_time'];
+				$data['end_time'] = $clean_post['end_time'];
+				$data['cat_id'] = $clean_post['cat_id'];
+				$data['event_location'] = $clean_post['event_location'];
+				$data['event_person'] = $clean_post['event_person'];
+				$data['event_detail'] = $clean_post['event_detail'];
+				$data['message'] = "Please input missing data!";
+				
+				$this->load->view('event_add', $data);
+				
+			}
+		}
+	}
+	
+	public function Edit($event_id) {		
+		if ($this->CheckLogin() == true)
+		{
+			$clean_post = $this->input->post(NULL, TRUE);
+			
+			$data = $this->general_model->general();
+			
+			$user_id = $this->input->cookie('user_id', false);
+			$event = $this->data_model->get_event($event_id);
+			$category = $this->data_model->get_all_category();
+			
+			$data['user_id'] = $user_id;
+			$data['event'] = $event;
+			$data['category'] = $category;
+			$data['message'] = "";
+				
+			$this->load->view('event_edit', $data);
+		}
+	}
+	
+	public function Edit_Event($event_id) {		
+		if($this->input->post(NULL, TRUE)){		
+			$clean_post = $this->input->post(NULL, TRUE);
+			
+			$user_id = $this->input->cookie('user_id', false);
+			
+			if ($clean_post["event_name"] != null && $clean_post["event_date"] != null &&
+				$clean_post["start_time"] != null && $clean_post["end_time"] != null &&
+				$clean_post["event_person"] != null && $event_id != null) 
+			{
+				$insert_data['event_id'] = $event_id;
+				$insert_data['event_name'] = $clean_post['event_name'];
+				$insert_data['event_date'] = $clean_post['event_date'];
+				$insert_data['start_time'] = $clean_post['start_time'];
+				$insert_data['end_time'] = $clean_post['end_time'];
+				$insert_data['cat_id'] = $clean_post['cat_id'];
+				$insert_data['event_location'] = $clean_post['event_location'];
+				$insert_data['event_person'] = $clean_post['event_person'];
+				$insert_data['event_detail'] = $clean_post['event_detail'];
+				$insert_data['event_status'] = 'ACTIVE';
+			
+				$this->data_model->update_event($event_id, $insert_data);
+				
+				redirect('Event/View/'.$event_id);
+			}
+			else
+			{
+				$data = $this->general_model->general();
+				$category = $this->data_model->get_all_category();
+				
+				$data['category'] = $category;
+				
+				$event['event_id'] = $event_id;
+				$event['event_name'] = $clean_post['event_name'];
+				$event['event_date'] = $clean_post['event_date'];
+				$event['start_time'] = $clean_post['start_time'];
+				$event['end_time'] = $clean_post['end_time'];
+				$event['cat_id'] = $clean_post['cat_id'];
+				$event['event_location'] = $clean_post['event_location'];
+				$event['event_person'] = $clean_post['event_person'];
+				$event['event_detail'] = $clean_post['event_detail'];
+				
+				$data['event'] = $event;
+				$data['message'] = "Please input missing data!";
+				
+				
+				$this->load->view('event_edit', $data);
+				
 			}
 		}
 	}
